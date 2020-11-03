@@ -1,16 +1,63 @@
 package com.codecool.funstudybackend.service;
 
 import com.codecool.funstudybackend.model.RemoteURLReader;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
+import com.google.gson.Gson;
+import org.apache.tomcat.util.json.JSONParser;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class APIService {
-
-    private static final String apiPath = "https://run.mocky.io/v3/9e14e086-84c2-4f98-9e36-54928830c980?stock=%s";
-
+    @Autowired
     RemoteURLReader remoteURLReader;
 
-    public APIService(RemoteURLReader remoteURLReader) {
-            this.remoteURLReader = remoteURLReader;
+    @Autowired
+    ObjectMapper mapper;
+
+    private JSONObject askForCardJson(){
+        String randomWord = RandomWordGenerator.getRandomWord();
+        JSONObject result = null;
+        while(result == null) {
+            System.out.println(randomWord);
+            try {
+                result = remoteURLReader.readFromUrl(randomWord);
+            } catch (IOException e){
+                System.out.println("word not found");
+                randomWord = RandomWordGenerator.getRandomWord();
+            }
         }
+        return result;
+    }
+
+    public ObjectNode findCardContentFromResult(){
+        JSONObject result = askForCardJson();
+
+        ObjectNode objectNode = mapper.createObjectNode();
+
+        JSONArray definitions = result.getJSONArray("definitions");
+        JSONObject definitonContainer = definitions.getJSONObject(0);
+        String definition = definitonContainer.getString("definition");
+        String imageUrl = null;
+        System.out.println(definitonContainer.get("image_url"));
+        if(!definitonContainer.isNull("image_url")) {
+            imageUrl = definitonContainer.getString("image_url");
+        }
+
+        objectNode.put("word", (String) result.get("word"));
+        objectNode.put("definition", definition);
+        objectNode.put("image_url", imageUrl);
+        return objectNode;
+    }
+
+
 }
