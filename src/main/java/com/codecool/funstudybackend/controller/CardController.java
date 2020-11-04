@@ -26,7 +26,7 @@ public class CardController {
     @CrossOrigin //(origins = "http://localhost:3000")
     @GetMapping("/card")
     public ObjectNode createCardContent() throws IOException {
-        ObjectNode result = apiService.findCardContentFromResult();
+        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
         return result;
     }
 }
