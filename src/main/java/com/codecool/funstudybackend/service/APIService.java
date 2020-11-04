@@ -28,7 +28,6 @@ public class APIService {
         String randomWord = RandomWordGenerator.getRandomWord();
         JSONObject result = null;
         while(result == null) {
-            System.out.println(randomWord);
             try {
                 result = remoteURLReader.readFromUrl(randomWord);
             } catch (IOException e){
@@ -48,12 +47,12 @@ public class APIService {
         JSONObject definitonContainer = definitions.getJSONObject(0);
         String definition = definitonContainer.getString("definition");
         String imageUrl = null;
-        System.out.println(definitonContainer.get("image_url"));
+
         if(!definitonContainer.isNull("image_url")) {
             imageUrl = definitonContainer.getString("image_url");
         }
 
-        objectNode.put("word", (String) result.get("word"));
+        objectNode.put("word",  result.getString("word"));
         objectNode.put("definition", definition);
         objectNode.put("image_url", imageUrl);
         return objectNode;
