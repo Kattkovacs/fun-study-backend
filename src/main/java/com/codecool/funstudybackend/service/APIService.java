@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 @Component
 public class APIService {
@@ -21,6 +22,19 @@ public class APIService {
 
     private JSONObject askForCardJson(){
         String randomWord = RandomWordGenerator.getRandomWord();
+        JSONObject result = null;
+        while(result == null) {
+            try {
+                result = remoteURLReader.readFromUrl(randomWord);
+            } catch (IOException e){
+                System.out.println("word not found");
+                randomWord = RandomWordGenerator.getRandomWord();
+            }
+        }
+        return result;
+    }
+
+    public JSONObject askForCardJsonMock(String randomWord){
         JSONObject result = null;
         while(result == null) {
             try {
