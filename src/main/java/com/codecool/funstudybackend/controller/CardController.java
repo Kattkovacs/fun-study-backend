@@ -1,13 +1,12 @@
 package com.codecool.funstudybackend.controller;
 
 import com.codecool.funstudybackend.model.RemoteURLReader;
+import com.codecool.funstudybackend.model.User;
 import com.codecool.funstudybackend.service.APIService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,5 +27,13 @@ public class CardController {
     public ObjectNode createCardContent() throws IOException {
         ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
         return result;
+    }
+
+    @CrossOrigin
+    @PostMapping(
+            value = "/registration", consumes = "application/json", produces = "application/json")
+    public String registration(@RequestBody User user){
+        System.out.println(user.getEmail());
+        return user.getEmail();
     }
 }
