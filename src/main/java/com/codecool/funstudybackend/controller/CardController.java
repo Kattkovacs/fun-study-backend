@@ -39,11 +39,9 @@ public class CardController {
         return user;
     }
 
-
     @CrossOrigin
-    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public User login(@RequestBody String email, @RequestBody String password){
-
-        return user;
+    @PostMapping(value = "/login", consumes = "application/json")
+    public boolean login(@RequestBody String email, @RequestBody String password){
+        return email.equals(user.getEmail()) && password.equals(user.getPassword());
     }
 }
