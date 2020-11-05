@@ -22,6 +22,9 @@ public class CardController {
     @Autowired
     APIService apiService;
 
+    @Autowired
+    User user;
+
     @CrossOrigin //(origins = "http://localhost:3000")
     @GetMapping("/card")
     public ObjectNode createCardContent() throws IOException {
@@ -30,10 +33,17 @@ public class CardController {
     }
 
     @CrossOrigin
-    @PostMapping(
-            value = "/registration", consumes = "application/json", produces = "application/json")
-    public String registration(@RequestBody User user){
-        System.out.println(user.getEmail());
-        return user.getEmail();
+    @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
+    public User registration(@RequestBody User user){
+        this.user = user;
+        return user;
+    }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
+    public User login(@RequestBody String email, @RequestBody String password){
+
+        return user;
     }
 }
