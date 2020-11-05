@@ -1,5 +1,6 @@
 package com.codecool.funstudybackend.model;
 
+import com.codecool.funstudybackend.util.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,16 @@ class RemoteURLReaderTest {
     @Autowired
     RemoteURLReader remoteURLReader;
 
+    @Autowired
+    Utility utility;
+
     @Test
     void testRemoteURLReaderWithWordGivesJSON() throws IOException, JSONException {
         String testWord = "folk";
         String expectedString = "{\"pronunciation\":\"fōk\",\"word\":\"folk\",\"definitions\":[{\"emoji\":null,\"image_url\":null,\"definition\":\"folk music.\",\"type\":\"noun\",\"example\":\"a mixture of folk and reggae\"}]}";
         JSONObject expected = new JSONObject(expectedString);
         JSONObject result = remoteURLReader.readFromUrl(testWord);
-        assertEquals(expected.toString(), result.toString());
+        utility.myAssertEquals(expected, result);
     }
 
     @Test

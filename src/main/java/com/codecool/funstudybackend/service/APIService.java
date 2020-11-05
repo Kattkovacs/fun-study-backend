@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 @Component
 public class APIService {
@@ -20,8 +19,7 @@ public class APIService {
     @Autowired
     ObjectMapper mapper;
 
-    private JSONObject askForCardJson(){
-        String randomWord = RandomWordGenerator.getRandomWord();
+    public JSONObject askForCardJson(String randomWord){
         JSONObject result = null;
         while(result == null) {
             try {
@@ -34,31 +32,16 @@ public class APIService {
         return result;
     }
 
-    public JSONObject askForCardJsonMock(String randomWord){
-        JSONObject result = null;
-        while(result == null) {
-            try {
-                result = remoteURLReader.readFromUrl(randomWord);
-            } catch (IOException e){
-                System.out.println("word not found");
-                randomWord = RandomWordGenerator.getRandomWord();
-            }
-        }
-        return result;
-    }
-
-    public ObjectNode findCardContentFromResult(){
-        JSONObject result = askForCardJson();
-
+    public ObjectNode findCardContentFromResult(JSONObject result){
         ObjectNode objectNode = mapper.createObjectNode();
 
         JSONArray definitions = result.getJSONArray("definitions");
-        JSONObject definitonContainer = definitions.getJSONObject(0);
-        String definition = definitonContainer.getString("definition");
+        JSONObject definitionContainer = definitions.getJSONObject(0);
+        String definition = definitionContainer.getString("definition");
         String imageUrl = null;
 
-        if(!definitonContainer.isNull("image_url")) {
-            imageUrl = definitonContainer.getString("image_url");
+        if(!definitionContainer.isNull("image_url")) {
+            imageUrl = definitionContainer.getString("image_url");
         }
 
         objectNode.put("word",  result.getString("word"));
