@@ -18,12 +18,12 @@ public class APIService {
     @Autowired
     ObjectMapper mapper;
 
-    public JSONObject askForCardJson(String randomWord){
+    public JSONObject askForCardJson(String randomWord) {
         JSONObject result = null;
-        while(result == null) {
+        while (result == null) {
             try {
                 result = remoteURLReader.readFromUrl(randomWord);
-            } catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("word not found");
                 randomWord = RandomWordGenerator.getRandomWord();
             }
@@ -31,7 +31,27 @@ public class APIService {
         return result;
     }
 
-    public ObjectNode findCardContentFromResult(JSONObject result){
+    public JSONObject askForCardJsonWithImg(String randomWord) {
+        JSONObject result = null;
+        Boolean imgUrl = null;
+        while (result == null || imgUrl == null) {
+            try {
+                result = remoteURLReader.readFromUrl(randomWord);
+                JSONArray definitions = result.getJSONArray("definitions");
+                JSONObject definitionContainer = definitions.getJSONObject(0);
+                if (!definitionContainer.isNull("image_url")) {
+                    imgUrl = true;
+                }
+            } catch (IOException e) {
+                System.out.println("word not found");
+                randomWord = RandomWordGenerator.getRandomWord();
+            }
+        }
+        return result;
+    }
+
+
+    public ObjectNode findCardContentFromResult(JSONObject result) {
         ObjectNode objectNode = mapper.createObjectNode();
 
         JSONArray definitions = result.getJSONArray("definitions");
@@ -39,11 +59,11 @@ public class APIService {
         String definition = definitionContainer.getString("definition");
         String imageUrl = null;
 
-        if(!definitionContainer.isNull("image_url")) {
+        if (!definitionContainer.isNull("image_url")) {
             imageUrl = definitionContainer.getString("image_url");
         }
 
-        objectNode.put("word",  result.getString("word"));
+        objectNode.put("word", result.getString("word"));
         objectNode.put("definition", definition);
         objectNode.put("image_url", imageUrl);
         return objectNode;

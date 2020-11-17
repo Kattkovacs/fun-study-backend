@@ -5,13 +5,16 @@ import com.codecool.funstudybackend.entity.User;
 import com.codecool.funstudybackend.service.APIService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
 import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 
+@Service
 @CrossOrigin
 @RestController
 public class CardController {
