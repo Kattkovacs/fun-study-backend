@@ -1,4 +1,4 @@
-package com.codecool.funstudybackend.model;
+package com.codecool.funstudybackend.entity;
 
 import org.springframework.stereotype.Component;
 

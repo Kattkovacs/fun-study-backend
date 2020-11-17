@@ -1,6 +1,5 @@
 package com.codecool.funstudybackend.service;
 
-import com.codecool.funstudybackend.model.RemoteURLReader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;

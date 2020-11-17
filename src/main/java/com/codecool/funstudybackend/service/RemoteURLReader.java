@@ -1,6 +1,5 @@
-package com.codecool.funstudybackend.model;
+package com.codecool.funstudybackend.service;
 
-import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
