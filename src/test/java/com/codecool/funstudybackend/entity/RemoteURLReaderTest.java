@@ -1,5 +1,6 @@
-package com.codecool.funstudybackend.model;
+package com.codecool.funstudybackend.entity;
 
+import com.codecool.funstudybackend.service.RemoteURLReader;
 import com.codecool.funstudybackend.util.Utility;
 import org.json.JSONException;
 import org.json.JSONObject;

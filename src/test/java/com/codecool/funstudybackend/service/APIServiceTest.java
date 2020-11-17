@@ -3,14 +3,12 @@ package com.codecool.funstudybackend.service;
 import com.codecool.funstudybackend.util.Utility;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import com.codecool.funstudybackend.model.RemoteURLReader;
 
 
 import java.io.IOException;
