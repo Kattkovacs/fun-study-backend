@@ -15,8 +15,6 @@ import java.io.IOException;
 
 import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 
-@EnableJpaRepositories(basePackages = "repository")
-@Service
 @CrossOrigin
 @RestController
 public class CardController {
@@ -27,7 +25,7 @@ public class CardController {
     APIService apiService;
 
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     @GetMapping("/card")
     public ObjectNode createCardContent() throws IOException {
