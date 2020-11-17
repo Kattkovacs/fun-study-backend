@@ -1,2 +1,4 @@
-package com.codecool.funstudybackend.entity;public class Card {
+package com.codecool.funstudybackend.entity;
+
+public class Card {
 }
