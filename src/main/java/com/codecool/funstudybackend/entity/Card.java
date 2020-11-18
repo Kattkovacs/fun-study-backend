@@ -1,14 +1,15 @@
 package com.codecool.funstudybackend.entity;
 
+import com.fasterxml.jackson.core.ObjectCodec;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -16,6 +17,10 @@ import javax.persistence.Id;
 @Builder
 @Entity
 public class Card {
+
+    @Autowired
+    @Transient
+    ObjectMapper mapper;
 
     @Id
     @GeneratedValue
@@ -28,7 +33,16 @@ public class Card {
     private String definition;
 
     @Column()
-    private String image_url;
+    private String imageUrl;
+
+    public ObjectNode getObjectNode() {
+        ObjectNode objectNode = mapper.createObjectNode();
+
+        objectNode.put("word", word);
+        objectNode.put("definition", definition);
+        objectNode.put("image_url", imageUrl);
+        return objectNode;
+    }
 
 
 }
