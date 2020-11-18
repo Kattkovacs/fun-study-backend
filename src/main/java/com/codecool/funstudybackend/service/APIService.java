@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class APIService {
         while(result == null) {
             try {
                 result = remoteURLReader.readFromUrl(randomWord);
-            } catch (IOException e){
+            } catch (IOException | JSONException e){
                 System.out.println("word not found");
                 randomWord = RandomWordGenerator.getRandomWord();
             }
