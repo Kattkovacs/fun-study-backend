@@ -1,5 +1,7 @@
 package com.codecool.funstudybackend.controller;
 
+import com.codecool.funstudybackend.entity.Card;
+import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.service.RemoteURLReader;
 import com.codecool.funstudybackend.entity.User;
 import com.codecool.funstudybackend.service.APIService;
@@ -11,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Random;
 
 import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 
@@ -22,6 +26,9 @@ public class CardController {
     RemoteURLReader remoteURLReader;
 
     @Autowired
+    CardRepository cardRepository;
+
+    @Autowired
     APIService apiService;
 
     @Autowired
@@ -31,6 +38,20 @@ public class CardController {
     public ObjectNode createCardContent() throws IOException {
         ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
         return result;
+    }
+
+    @GetMapping("/card-with-picture")
+    public ObjectNode createCardWithPictureContent() throws IOException {
+        List<Card> cardList = cardRepository.getAllCardWithPicture();
+        Random random = new Random();
+        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
+    }
+
+    @GetMapping("/card-without-picture")
+    public ObjectNode createCardWithOutPictureContent() throws IOException {
+        List<Card> cardList = cardRepository.getAllCardWithOutPicture();
+        Random random = new Random();
+        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
     }
 
     @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
