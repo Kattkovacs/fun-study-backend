@@ -45,22 +45,23 @@ class CardRepositoryTest {
 
     @Test
     public void findOnlyCardWithOutImage(){
-        Card testCard1 = Card.builder().word("cat3").definition("fluffy animal with 4 leg.").imageUrl(null).build();
-        Card testCard2 = Card.builder().word("cat4").definition("fluffy animal with 4 leg.").imageUrl(null).build();
-        Card testCard3 = Card.builder().word("cat5").definition("fluffy animal with 4 leg.").imageUrl(null).build();
+        Card testCard1 = Card.builder().word("cat3").definition("fluffy animal with 4 leg.").build();
+        Card testCard2 = Card.builder().word("cat4").definition("fluffy animal with 4 leg.").build();
+        Card testCard3 = Card.builder().word("cat5").definition("fluffy animal with 4 leg.").build();
         cardRepository.save(testCard1);
         cardRepository.save(testCard2);
         cardRepository.save(testCard3);
         List<Card> cardList = cardRepository.findAll();
-        List<Card> cardListWithImg = cardRepository.getAllCardWithOutPicture();
+        List<Card> cardListWithOutImg = cardRepository.getAllCardWithOutPicture();
+        System.out.println(cardListWithOutImg);
         assertThat(cardList).hasSize(3);
-        assertThat(cardListWithImg).hasSize(3);
+        assertThat(cardListWithOutImg).hasSize(3);
     }
 
     @Test
     public void saveMultipleCard(){
-        Card testCard1 = Card.builder().word("cat1").definition("fluffy animal with 4 leg.").imageUrl(null).build();
-        Card testCard2 = Card.builder().word("cat2").definition("fluffy animal with 4 leg.").imageUrl(null).build();
+        Card testCard1 = Card.builder().word("cat1").definition("fluffy animal with 4 leg.").build();
+        Card testCard2 = Card.builder().word("cat2").definition("fluffy animal with 4 leg.").build();
         Card testCard3 = Card.builder().word("cat3").definition("fluffy animal with 4 leg.").imageUrl("asdf").build();
         Card testCard4 = Card.builder().word("cat4").definition("fluffy animal with 4 leg.").imageUrl("qwer").build();
         Card testCard5 = Card.builder().word("cat5").definition("fluffy animal with 4 leg.").imageUrl("íyxc").build();
