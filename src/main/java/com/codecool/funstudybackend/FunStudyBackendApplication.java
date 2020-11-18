@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories("com.codecool.funstudybackend")
 @SpringBootApplication
+@EnableJpaRepositories("com.codecool.funstudybackend")
 public class FunStudyBackendApplication {
 
     @Autowired
@@ -28,8 +28,7 @@ public class FunStudyBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            dbInit.initDb();
-            System.out.println(cardRepository.findAll());
+            dbInit.initDb(10);
         };
     }
 
