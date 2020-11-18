@@ -17,6 +17,10 @@ public class DbInit {
     private APIService apiService;
 
     private int cardCount = 10;
+    private String[] pictureWords = new String[]{"lamp", "cat", "dog", "horse", "fish", "catfish", "hammer", "flag", "beer", "hamster"
+    ,"rabbit","mouse","rat","owl","crab","shark","jellyfish","turtle","car","bus"
+            ,"gun","shield","helmet","blue","red"
+    };
 
     public void initDb() {
         for (int i = 0; i < cardCount; i++) {
@@ -27,15 +31,15 @@ public class DbInit {
                     .image_url(null)
                     .build();
             cardRepository.save(tempCard1);
-            System.out.println(tempCard1.toString());
-//            ObjectNode cardData2 = apiService.findCardContentFromResult(apiService.askForCardJsonWithImg(RandomWordGenerator.getRandomWord()));
-//            Card tempCard2 = Card.builder()
-//                    .word(cardData2.get("word").toString())
-//                    .definition(cardData2.get("definition").toString())
-//                    .image_url(cardData2.get("image_url").toString())
-//                    .build();
-//            cardRepository.save(tempCard2);
-//            System.out.println(tempCard2.toString());
+        }
+        for (int i = 0; i < cardCount; i++) {
+            ObjectNode cardData2 = apiService.findCardContentFromResult(apiService.askForCardJsonWithImg(pictureWords[i]));
+            Card tempCard2 = Card.builder()
+                    .word(cardData2.get("word").toString())
+                    .definition(cardData2.get("definition").toString())
+                    .image_url(cardData2.get("image_url").toString())
+                    .build();
+            cardRepository.save(tempCard2);
         }
     }
 
