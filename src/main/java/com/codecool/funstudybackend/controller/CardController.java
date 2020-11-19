@@ -36,13 +36,9 @@ public class CardController {
 
     @GetMapping("/card")
     public Card createCardContent() throws IOException {
-//        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
-        Card result = Card.builder()
-                .word("horse")
-                .definition("big animal")
-                .imageUrl(null)
-                .build();
-        return result;
+        List<Card> cardList = cardRepository.findAll();
+        Random random = new Random();
+        return cardList.get(random.nextInt(cardList.size()));
     }
 
     @GetMapping("/card-with-picture")
