@@ -46,17 +46,17 @@ public class CardController {
     }
 
     @GetMapping("/card-with-picture")
-    public ObjectNode createCardWithPictureContent() throws IOException {
+    public Card createCardWithPictureContent() throws IOException {
         List<Card> cardList = cardRepository.getAllCardWithPicture();
         Random random = new Random();
-        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
+        return cardList.get(random.nextInt(cardList.size()));
     }
 
     @GetMapping("/card-without-picture")
-    public ObjectNode createCardWithOutPictureContent() throws IOException {
+    public Card createCardWithOutPictureContent() throws IOException {
         List<Card> cardList = cardRepository.getAllCardWithOutPicture();
         Random random = new Random();
-        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
+        return cardList.get(random.nextInt(cardList.size()));
     }
 
     @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
