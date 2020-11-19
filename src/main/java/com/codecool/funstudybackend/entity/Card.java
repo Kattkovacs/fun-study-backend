@@ -20,6 +20,7 @@ public class Card {
 
     @Autowired
     @Transient
+    @Column(nullable = true)
     ObjectMapper mapper;
 
     @Id
@@ -32,7 +33,7 @@ public class Card {
     @Column(nullable = false)
     private String definition;
 
-    @Column()
+    @Column(nullable = true)
     private String imageUrl;
 
     public ObjectNode getObjectNode() {

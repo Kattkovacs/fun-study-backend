@@ -1,6 +1,7 @@
 package com.codecool.funstudybackend.controller;
 
 import com.codecool.funstudybackend.entity.Card;
+import com.codecool.funstudybackend.view.UnknownCard;
 import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.repository.UserRepository;
 import com.codecool.funstudybackend.service.RemoteURLReader;
@@ -8,16 +9,14 @@ import com.codecool.funstudybackend.entity.User;
 import com.codecool.funstudybackend.service.APIService;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
-import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 
 @Service
 @CrossOrigin
@@ -36,8 +35,13 @@ public class CardController {
     UserRepository userRepository;
 
     @GetMapping("/card")
-    public ObjectNode createCardContent() throws IOException {
-        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
+    public Card createCardContent() throws IOException {
+//        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
+        Card result = Card.builder()
+                .word("horse")
+                .definition("big animal")
+                .imageUrl(null)
+                .build();
         return result;
     }
 
@@ -65,5 +69,12 @@ public class CardController {
     public ResponseEntity<Boolean> login(@RequestBody User user) {
         User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         return ResponseEntity.ok(userByEmailAndPassword != null);
+    }
+
+    @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
+    public HashMap<String, String> saveCard(@RequestBody HashMap<String, String> unknownCard ){
+//        UnknownCard
+//        cardRepository.findCardByWord(unknownCard.getWord());
+        return unknownCard;
     }
 }
