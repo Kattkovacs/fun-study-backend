@@ -1,14 +1,9 @@
 package com.codecool.funstudybackend.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +25,13 @@ public class User {
     private String firstName;
     private String lastName;
     private String date;
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @Singular
+    @JoinTable(name = "unknowns")
+    Set<Card> unknownCards;
+
+    public void addUnknownCard(Card card){
+        unknownCards.add(card);
+    }
 }

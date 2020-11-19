@@ -7,12 +7,16 @@ import com.codecool.funstudybackend.repository.UserRepository;
 import com.codecool.funstudybackend.service.RemoteURLReader;
 import com.codecool.funstudybackend.entity.User;
 import com.codecool.funstudybackend.service.APIService;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +27,10 @@ import java.util.Random;
 @CrossOrigin
 @RestController
 public class CardController {
+
+    @Autowired
+    UserRepository userRepository;
+
     @Autowired
     RemoteURLReader remoteURLReader;
 
@@ -63,27 +71,20 @@ public class CardController {
 
     @GetMapping("/card-without-picture")
     public Card createCardWithOutPictureContent() throws IOException {
-        List<Card> cardList = cardRepository.getAllCardWithOutPicture();
         Random random = new Random();
-        return cardList.get(random.nextInt(cardList.size()));
+        List<Card> cardsWithoutPicture = cardRepository.getAllCardWithOutPicture();
+        return cardsWithoutPicture.get(random.nextInt(cardsWithoutPicture.size()));
     }
 
-    @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
-    public User registration(@RequestBody User user) {
-        userRepository.save(user);
-        return user;
-    }
-
-    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Boolean> login(@RequestBody User user) {
-        User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
-        return ResponseEntity.ok(userByEmailAndPassword != null);
-    }
 
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
-    public HashMap<String, String> saveCard(@RequestBody HashMap<String, String> unknownCard) {
-//        UnknownCard
-//        cardRepository.findCardByWord(unknownCard.getWord());
-        return unknownCard;
+    public void saveCard(@RequestBody UnknownCard unknownCard){
+        Card card = cardRepository.findCardByWord(unknownCard.getWord());
+        User user = userRepository.findUserByEmail(unknownCard.getEmail());
+        user.addUnknownCard(card);
+        userRepository.save(user);
+        card.addUser(user);
+        cardRepository.save(card);
     }
+
 }

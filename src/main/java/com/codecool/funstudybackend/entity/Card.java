@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +31,10 @@ public class Card {
     @Column(nullable = true)
     private String imageUrl;
 
+    @ManyToMany(mappedBy = "unknownCards")
+    Set<User> users;
+
+    public void addUser(User user){
+        users.add(user);
+    }
 }
