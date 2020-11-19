@@ -40,9 +40,6 @@ public class CardController {
     @Autowired
     APIService apiService;
 
-    @Autowired
-    UserRepository userRepository;
-
     private List<Card> usedCardList = new ArrayList<>();
 
     @GetMapping("/card")
