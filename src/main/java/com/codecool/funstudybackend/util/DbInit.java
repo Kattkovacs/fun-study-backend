@@ -65,11 +65,11 @@ public class DbInit {
         red.put("definition", "of a colour at the end of the spectrum next to orange and opposite violet, as of blood, fire, or rubies.");
         red.put("image_url", "https://media.owlbot.info/dictionary/images/red.png.400x400_q85_box-0,0,500,500_crop_detail.png");
         words.add(red);
-        HashMap<String, String> yellow = new HashMap<>();
-        yellow.put("word", "yellow");
-        yellow.put("definition", "of the colour between green and orange in the spectrum, a primary subtractive colour complementary to blue; coloured like ripe lemons or egg yolks.");
-        yellow.put("image_url", "https://media.owlbot.info/dictionary/images/yellow.jpg.400x400_q85_box-0,0,2100,2100_crop_detail.jpg");
-        words.add(yellow);
+        HashMap<String, String> raincoat = new HashMap<>();
+        raincoat.put("word", "raincoat");
+        raincoat.put("definition", "a long coat, typically having a belt, made from waterproofed or water-resistant fabric.");
+        raincoat.put("image_url", "https://media.owlbot.info/dictionary/images/fffffy.jpg.400x400_q85_box-0,73,950,1022_crop_detail.jpg");
+        words.add(raincoat);
         HashMap<String, String> shark = new HashMap<>();
         shark.put("word", "shark");
         shark.put("definition", "a long-bodied chiefly marine fish with a cartilaginous skeleton, a prominent dorsal fin, and tooth-like scales. Most sharks are predatory, though the largest kinds feed on plankton, and some can grow to a large size.");
