@@ -1,6 +1,7 @@
 package com.codecool.funstudybackend.repository;
 
 import com.codecool.funstudybackend.entity.Card;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
@@ -55,7 +55,7 @@ class CardRepositoryTest {
         List<Card> cardListWithOutImg = cardRepository.getAllCardWithOutPicture();
         System.out.println(cardListWithOutImg);
         assertThat(cardList).hasSize(3);
-//        assertThat(cardListWithOutImg).hasSize(3);
+        assertThat(cardListWithOutImg).hasSize(3);
     }
 
     @Test
@@ -74,8 +74,8 @@ class CardRepositoryTest {
         List<Card> cardListWithImg = cardRepository.getAllCardWithPicture();
         List<Card> cardListWithOutImg = cardRepository.getAllCardWithOutPicture();
         assertThat(cardList).hasSize(5);
-        //assertThat(cardListWithImg).hasSize(3);
-        //assertThat(cardListWithOutImg).hasSize(2);
+        assertThat(cardListWithImg).hasSize(3);
+        assertThat(cardListWithOutImg).hasSize(2);
     }
 
 
