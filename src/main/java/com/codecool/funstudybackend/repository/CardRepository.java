@@ -11,6 +11,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
     @Query("SELECT c FROM Card c WHERE c.imageUrl NOT LIKE 'null'")
     List<Card> getAllCardWithPicture();
 
-    @Query("SELECT c FROM Card c WHERE c.imageUrl LIKE 'null'")
+    @Query("SELECT c FROM Card c WHERE c.imageUrl is null")
     List<Card> getAllCardWithOutPicture();
 }

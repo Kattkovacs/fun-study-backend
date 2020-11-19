@@ -16,7 +16,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EnableJpaRepositories("com.codecool.funstudybackend")
 @SpringBootApplication
 @EnableJpaRepositories("com.codecool.funstudybackend")
 public class FunStudyBackendApplication {
@@ -35,7 +34,7 @@ public class FunStudyBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            dbInit.initDb(1);
+            dbInit.initDb();
         };
     }
 
