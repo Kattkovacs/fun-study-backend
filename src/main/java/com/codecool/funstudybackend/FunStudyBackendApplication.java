@@ -18,7 +18,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EnableJpaRepositories("com.codecool.funstudybackend")
 @SpringBootApplication
-@EnableJpaRepositories("com.codecool.funstudybackend")
 public class FunStudyBackendApplication {
 
     @Autowired

@@ -36,8 +36,13 @@ public class CardController {
     UserRepository userRepository;
 
     @GetMapping("/card")
-    public ObjectNode createCardContent() throws IOException {
-        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
+    public Card createCardContent() throws IOException {
+//        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
+        Card result = Card.builder()
+                .word("horse")
+                .definition("big animal")
+                .imageUrl(null)
+                .build();
         return result;
     }
 
@@ -65,5 +70,10 @@ public class CardController {
     public ResponseEntity<Boolean> login(@RequestBody User user) {
         User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         return ResponseEntity.ok(userByEmailAndPassword != null);
+    }
+
+    @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
+    public Card saveCard(@RequestBody Card card){
+        return card;
     }
 }
