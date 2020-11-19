@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -34,29 +35,37 @@ public class CardController {
     @Autowired
     UserRepository userRepository;
 
+    private List<Card> usedCardList = new ArrayList<>();
+
     @GetMapping("/card")
     public Card createCardContent() throws IOException {
-//        ObjectNode result = apiService.findCardContentFromResult(apiService.askForCardJson(RandomWordGenerator.getRandomWord()));
-        Card result = Card.builder()
-                .word("horse")
-                .definition("big animal")
-                .imageUrl(null)
-                .build();
-        return result;
+        List<Card> cardList = cardRepository.findAll();
+        Random random = new Random();
+        Card selectedCard = cardList.get(random.nextInt(cardList.size()));
+        while (usedCardList.contains(selectedCard)) {
+            selectedCard = cardList.get(random.nextInt(cardList.size()));
+        }
+        usedCardList.add(selectedCard);
+        return selectedCard;
+    }
+
+    @GetMapping("/clear-memory-game")
+    public void clearMemoryGame() {
+        usedCardList.clear();
     }
 
     @GetMapping("/card-with-picture")
-    public ObjectNode createCardWithPictureContent() throws IOException {
+    public Card createCardWithPictureContent() throws IOException {
         List<Card> cardList = cardRepository.getAllCardWithPicture();
         Random random = new Random();
-        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
+        return cardList.get(random.nextInt(cardList.size()));
     }
 
     @GetMapping("/card-without-picture")
-    public ObjectNode createCardWithOutPictureContent() throws IOException {
+    public Card createCardWithOutPictureContent() throws IOException {
         List<Card> cardList = cardRepository.getAllCardWithOutPicture();
         Random random = new Random();
-        return cardList.get(random.nextInt(cardList.size())).getObjectNode();
+        return cardList.get(random.nextInt(cardList.size()));
     }
 
     @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
@@ -72,7 +81,7 @@ public class CardController {
     }
 
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
-    public HashMap<String, String> saveCard(@RequestBody HashMap<String, String> unknownCard ){
+    public HashMap<String, String> saveCard(@RequestBody HashMap<String, String> unknownCard) {
 //        UnknownCard
 //        cardRepository.findCardByWord(unknownCard.getWord());
         return unknownCard;
