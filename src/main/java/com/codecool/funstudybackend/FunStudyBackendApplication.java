@@ -17,7 +17,7 @@ public class FunStudyBackendApplication {
     @Autowired
     private CardRepository cardRepository;
 
-    @Autowired
+    @Autowired(required = false)
     private DbInit dbInit;
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class FunStudyBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            dbInit.initDb(10);
+            dbInit.initDb(1);
         };
     }
 

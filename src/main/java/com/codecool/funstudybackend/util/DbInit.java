@@ -32,7 +32,7 @@ public class DbInit {
                     .imageUrl(null)
                     .build();
             cardRepository.save(tempCard1);
-            ObjectNode cardData2 = apiService.findCardContentFromResult(apiService.askForCardJsonWithImg(pictureWords[i]));
+            ObjectNode cardData2 = apiService.findCardContentFromResult(apiService.askForCardJson(pictureWords[i]));
             Card tempCard2 = Card.builder()
                     .word(cardData2.get("word").toString())
                     .definition(cardData2.get("definition").toString())
@@ -43,3 +43,4 @@ public class DbInit {
     }
 
 }
+

@@ -23,8 +23,9 @@ public class APIService {
         while (result == null) {
             try {
                 result = remoteURLReader.readFromUrl(randomWord);
+                System.out.println("word found: " + randomWord);
             } catch (IOException e) {
-                System.out.println("word not found");
+                System.out.println("word not found: " + randomWord);
                 randomWord = RandomWordGenerator.getRandomWord();
             }
         }
@@ -42,8 +43,9 @@ public class APIService {
                 if (!definitionContainer.isNull("image_url")) {
                     imgUrl = true;
                 }
+                System.out.println("word found: "+ randomWord);
             } catch (IOException e) {
-                System.out.println("word not found");
+                System.out.println("word not found: "+ randomWord);
                 randomWord = RandomWordGenerator.getRandomWord();
             }
         }
