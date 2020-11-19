@@ -28,7 +28,7 @@ public class FunStudyBackendApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            dbInit.initDb(1);
+            dbInit.initDb();
         };
     }
 
