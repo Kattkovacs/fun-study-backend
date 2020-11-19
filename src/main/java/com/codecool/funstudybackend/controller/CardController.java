@@ -24,8 +24,10 @@ import java.util.Random;
 @Service
 @CrossOrigin
 @RestController
-@SessionAttributes("user")
 public class CardController {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     RemoteURLReader remoteURLReader;
@@ -36,8 +38,6 @@ public class CardController {
     @Autowired
     APIService apiService;
 
-    @Autowired
-    UserRepository userRepository;
 
     @GetMapping("/card-with-picture")
     public Card createCardWithPictureContent() throws IOException {
@@ -53,29 +53,15 @@ public class CardController {
         return cardsWithoutPicture.get(random.nextInt(cardsWithoutPicture.size()));
     }
 
-    @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
-    public User registration(@RequestBody User user) {
-        userRepository.save(user);
-        return user;
-    }
-
-    @ModelAttribute("user")
-    @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public User login(@RequestBody User user, Model model) {
-        User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
-        model.addAttribute(userByEmailAndPassword);
-        return userByEmailAndPassword;
-    }
 
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
-    public Card saveCard(@RequestBody UnknownCard unknownCard, @ModelAttribute("user") User user){
-        System.out.println("User email: " + user.getEmail());
-        return cardRepository.findCardByWord(unknownCard.getWord());
+    public void saveCard(@RequestBody UnknownCard unknownCard){
+        Card card = cardRepository.findCardByWord(unknownCard.getWord());
+        User user = userRepository.findUserByEmail(unknownCard.getEmail());
+        user.addUnknownCard(card);
+        userRepository.save(user);
+        card.addUser(user);
+        cardRepository.save(card);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public String testMestod(){
-//        ShoppingCart cart = (ShoppingCart)request.getSession().setAttribute("cart",value);
-//        return "testJsp";
-//    }
 }

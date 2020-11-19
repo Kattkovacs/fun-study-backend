@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,12 +18,6 @@ import javax.persistence.*;
 @Builder
 @Entity
 public class Card {
-
-//    @Autowired
-//    @Transient
-//    @Column(nullable = true)
-//    ObjectMapper mapper;
-
     @Id
     @GeneratedValue
     private Long cardId;
@@ -36,14 +31,10 @@ public class Card {
     @Column(nullable = true)
     private String imageUrl;
 
-//    public ObjectNode getObjectNode() {
-//        ObjectNode objectNode = mapper.createObjectNode();
-//
-//        objectNode.put("word", word);
-//        objectNode.put("definition", definition);
-//        objectNode.put("image_url", imageUrl);
-//        return objectNode;
-//    }
+    @ManyToMany(mappedBy = "unknownCards")
+    Set<User> users;
 
-
+    public void addUser(User user){
+        users.add(user);
+    }
 }
