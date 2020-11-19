@@ -13,4 +13,7 @@ public interface CardRepository extends JpaRepository<Card, Long> {
 
     @Query("SELECT c FROM Card c WHERE c.imageUrl is null")
     List<Card> getAllCardWithOutPicture();
+
+    Card findCardByWord(String word);
+
 }
