@@ -13,8 +13,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
 import java.util.Random;
@@ -22,6 +24,7 @@ import java.util.Random;
 @Service
 @CrossOrigin
 @RestController
+@SessionAttributes("user")
 public class CardController {
 
     @Autowired
@@ -56,14 +59,23 @@ public class CardController {
         return user;
     }
 
+    @ModelAttribute("user")
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Boolean> login(@RequestBody User user) {
+    public User login(@RequestBody User user, Model model) {
         User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
-        return ResponseEntity.ok(userByEmailAndPassword != null);
+        model.addAttribute(userByEmailAndPassword);
+        return userByEmailAndPassword;
     }
 
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
-    public Card saveCard(@RequestBody UnknownCard unknownCard ){
+    public Card saveCard(@RequestBody UnknownCard unknownCard, @ModelAttribute("user") User user){
+        System.out.println("User email: " + user.getEmail());
         return cardRepository.findCardByWord(unknownCard.getWord());
     }
+
+//    @RequestMapping(method = RequestMethod.GET)
+//    public String testMestod(){
+//        ShoppingCart cart = (ShoppingCart)request.getSession().setAttribute("cart",value);
+//        return "testJsp";
+//    }
 }

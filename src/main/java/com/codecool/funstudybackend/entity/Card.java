@@ -18,10 +18,10 @@ import javax.persistence.*;
 @Entity
 public class Card {
 
-    @Autowired
-    @Transient
-    @Column(nullable = true)
-    ObjectMapper mapper;
+//    @Autowired
+//    @Transient
+//    @Column(nullable = true)
+//    ObjectMapper mapper;
 
     @Id
     @GeneratedValue
@@ -36,14 +36,14 @@ public class Card {
     @Column(nullable = true)
     private String imageUrl;
 
-    public ObjectNode getObjectNode() {
-        ObjectNode objectNode = mapper.createObjectNode();
-
-        objectNode.put("word", word);
-        objectNode.put("definition", definition);
-        objectNode.put("image_url", imageUrl);
-        return objectNode;
-    }
+//    public ObjectNode getObjectNode() {
+//        ObjectNode objectNode = mapper.createObjectNode();
+//
+//        objectNode.put("word", word);
+//        objectNode.put("definition", definition);
+//        objectNode.put("image_url", imageUrl);
+//        return objectNode;
+//    }
 
 
 }
