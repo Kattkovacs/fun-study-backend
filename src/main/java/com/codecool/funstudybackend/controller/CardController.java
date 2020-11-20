@@ -32,13 +32,7 @@ public class CardController {
     UserRepository userRepository;
 
     @Autowired
-    RemoteURLReader remoteURLReader;
-
-    @Autowired
     CardRepository cardRepository;
-
-    @Autowired
-    APIService apiService;
 
     private List<Card> usedCardList = new ArrayList<>();
 
