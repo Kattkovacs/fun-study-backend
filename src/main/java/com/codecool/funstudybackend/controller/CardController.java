@@ -40,9 +40,6 @@ public class CardController {
     @Autowired
     APIService apiService;
 
-    @Autowired
-    UserRepository userRepository;
-
     private List<Card> usedCardList = new ArrayList<>();
 
     @GetMapping("/card")
@@ -78,13 +75,14 @@ public class CardController {
 
 
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
-    public void saveCard(@RequestBody UnknownCard unknownCard){
+    public Card saveCard(@RequestBody UnknownCard unknownCard){
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
         User user = userRepository.findUserByEmail(unknownCard.getEmail());
         user.addUnknownCard(card);
         userRepository.save(user);
         card.addUser(user);
         cardRepository.save(card);
+        return card;
     }
 
 }
