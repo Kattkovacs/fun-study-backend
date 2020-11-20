@@ -19,9 +19,6 @@ public class DbInit {
     @Autowired
     private CardRepository cardRepository;
 
-    @Autowired
-    private APIService apiService;
-
 
     public void initDb() {
         List<HashMap<String, String>> words = new ArrayList<>();

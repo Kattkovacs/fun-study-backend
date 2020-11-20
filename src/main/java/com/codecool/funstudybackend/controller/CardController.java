@@ -32,9 +32,6 @@ public class CardController {
     UserRepository userRepository;
 
     @Autowired
-    RemoteURLReader remoteURLReader;
-
-    @Autowired
     CardRepository cardRepository;
 
     @Autowired
