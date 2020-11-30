@@ -2,13 +2,8 @@ package com.codecool.funstudybackend.util;
 
 import com.codecool.funstudybackend.entity.Card;
 import com.codecool.funstudybackend.repository.CardRepository;
-import com.codecool.funstudybackend.service.APIService;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.github.dhiraj072.randomwordgenerator.RandomWordGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,9 +13,6 @@ import java.util.List;
 public class DbInit {
     @Autowired
     private CardRepository cardRepository;
-
-    @Autowired
-    private APIService apiService;
 
 
     public void initDb() {
