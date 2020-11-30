@@ -4,7 +4,6 @@ package com.codecool.funstudybackend.controller;
 import com.codecool.funstudybackend.entity.User;
 import com.codecool.funstudybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
