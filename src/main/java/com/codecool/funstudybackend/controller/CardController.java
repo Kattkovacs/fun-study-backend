@@ -42,6 +42,9 @@ public class CardController {
     @GetMapping("/card")
     public Card createCardContent() throws IOException {
         List<Card> cardList = cardRepository.findAll();
+        if(cardList.size() == usedCardList.size()) {
+            usedCardList = new ArrayList<>();
+        }
         Random random = new Random();
         Card selectedCard = cardList.get(random.nextInt(cardList.size()));
         while (usedCardList.contains(selectedCard)) {
