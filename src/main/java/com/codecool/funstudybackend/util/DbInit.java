@@ -143,7 +143,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("Eszkis")
                 .lastName("Laci")
-                .role(ApplicationUserRole.PLAYER)
+                .roles(List.of(ApplicationUserRole.PLAYER))
                 .date(LocalDate.of(1992, 2, 7))
                 .build();
 
@@ -153,7 +153,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("Kliszki")
                 .lastName("Eni")
-                .role(ApplicationUserRole.PLAYER)
+                .roles(List.of(ApplicationUserRole.PLAYER))
                 .date(LocalDate.of(1997, 4, 11))
                 .build();
 
@@ -163,7 +163,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("Sallai")
                 .lastName("Adam")
-                .role(ApplicationUserRole.PLAYER)
+                .roles(List.of(ApplicationUserRole.PLAYER))
                 .date(LocalDate.of(1998, 5, 8))
                 .build();
 
@@ -173,7 +173,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("Kovacs")
                 .lastName("Katalin")
-                .role(ApplicationUserRole.PLAYER)
+                .roles(List.of(ApplicationUserRole.PLAYER))
                 .date(LocalDate.of(1981, 7, 31))
                 .build();
 
@@ -183,7 +183,7 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("admin")
                 .lastName("admin")
-                .role(ApplicationUserRole.ADMIN)
+                .roles(List.of(ApplicationUserRole.ADMIN))
                 .date(LocalDate.of(1000, 1, 1))
                 .build();
 

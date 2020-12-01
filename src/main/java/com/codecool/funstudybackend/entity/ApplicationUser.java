@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -24,8 +25,9 @@ public class ApplicationUser {
     @Column(nullable = false)
     private String password;
 
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
-    private ApplicationUserRole role;
+    private List<ApplicationUserRole> roles;
 
     private String firstName;
     private String lastName;

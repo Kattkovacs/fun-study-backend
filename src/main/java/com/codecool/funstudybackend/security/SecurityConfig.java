@@ -16,6 +16,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final JwtTokenServices jwtTokenServices;
+
+    public SecurityConfig(JwtTokenServices jwtTokenServices) {
+        this.jwtTokenServices = jwtTokenServices;
+    }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -31,8 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .anyRequest()
+                .anyRequest().permitAll()
                 //.authenticated();
-                .permitAll();
+                .and()
+                .addFilterBefore(new JwtTokenFilter(jwtTokenServices), UsernamePasswordAuthenticationFilter.class);;
     }
 }

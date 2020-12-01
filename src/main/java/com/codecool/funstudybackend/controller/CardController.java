@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -71,12 +72,16 @@ public class CardController {
     @PostMapping(value = "savecard", consumes = "application/json", produces = "application/json")
     public Card saveCard(@RequestBody UnknownCard unknownCard) {
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
-        ApplicationUser user = userRepository.findUserByEmail(unknownCard.getEmail());
-        user.addUnknownCard(card);
-        userRepository.save(user);
-        card.addUser(user);
-        cardRepository.save(card);
-        return card;
+
+        Optional<ApplicationUser> user = userRepository.findUserByEmail(unknownCard.getEmail());
+        if(user.isPresent()) {
+            user.get().addUnknownCard(card);
+            userRepository.save(user.get());
+            card.addUser(user.get());
+            cardRepository.save(card);
+            return card;
+        }
+        return null;
     }
 
 }

@@ -9,6 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -37,8 +39,8 @@ class UserRepositoryTest {
         userRepository.save(test1);
         userRepository.save(test2);
 
-        ApplicationUser userByEmail = userRepository.findUserByEmail("test2@codecool.com");
-        passwordEncoder.matches("test", userByEmail.getPassword());
+        Optional<ApplicationUser> userByEmail = userRepository.findUserByEmail("test2@codecool.com");
+        passwordEncoder.matches("test", userByEmail.get().getPassword());
         assertEquals(userByEmail, test2);
     }
 
