@@ -42,7 +42,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Boolean> login(@RequestBody ApplicationUser user) {
+    public ResponseEntity<Boolean> login(@RequestBody UserContainer user) {
         ApplicationUser userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         return ResponseEntity.ok(userByEmailAndPassword != null);
     }
