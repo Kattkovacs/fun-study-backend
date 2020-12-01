@@ -1,5 +1,6 @@
 package com.codecool.funstudybackend.entity;
 
+import com.codecool.funstudybackend.security.ApplicationUserRole;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,6 +24,9 @@ public class ApplicationUser {
     @Column(nullable = false)
     private String password;
 
+    @Enumerated(EnumType.STRING)
+    private ApplicationUserRole role;
+
     private String firstName;
     private String lastName;
     private LocalDate date;
@@ -32,7 +36,7 @@ public class ApplicationUser {
     @JoinTable(name = "unknowns")
     Set<Card> unknownCards;
 
-    public void addUnknownCard(Card card){
+    public void addUnknownCard(Card card) {
         unknownCards.add(card);
     }
 }

@@ -4,6 +4,7 @@ import com.codecool.funstudybackend.entity.Card;
 import com.codecool.funstudybackend.entity.ApplicationUser;
 import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.repository.UserRepository;
+import com.codecool.funstudybackend.security.ApplicationUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -142,10 +143,51 @@ public class DbInit {
                 .password(passwordEncoder.encode("password"))
                 .firstName("Eszkis")
                 .lastName("Laci")
+                .role(ApplicationUserRole.PLAYER)
                 .date(LocalDate.of(1992, 2, 7))
                 .build();
 
         userRepository.save(eszkis);
+        ApplicationUser eni = ApplicationUser.builder()
+                .email("eni@mail.com")
+                .password(passwordEncoder.encode("password"))
+                .firstName("Kliszki")
+                .lastName("Eni")
+                .role(ApplicationUserRole.PLAYER)
+                .date(LocalDate.of(1997, 4, 11))
+                .build();
+
+        userRepository.save(eni);
+        ApplicationUser adam = ApplicationUser.builder()
+                .email("adam@mail.com")
+                .password(passwordEncoder.encode("password"))
+                .firstName("Sallai")
+                .lastName("Adam")
+                .role(ApplicationUserRole.PLAYER)
+                .date(LocalDate.of(1998, 5, 8))
+                .build();
+
+        userRepository.save(adam);
+        ApplicationUser katt = ApplicationUser.builder()
+                .email("katt@mail.com")
+                .password(passwordEncoder.encode("password"))
+                .firstName("Kovacs")
+                .lastName("Katalin")
+                .role(ApplicationUserRole.PLAYER)
+                .date(LocalDate.of(1981, 7, 31))
+                .build();
+
+        userRepository.save(katt);
+        ApplicationUser admin = ApplicationUser.builder()
+                .email("admin@mail.com")
+                .password(passwordEncoder.encode("password"))
+                .firstName("admin")
+                .lastName("admin")
+                .role(ApplicationUserRole.ADMIN)
+                .date(LocalDate.of(1000, 1, 1))
+                .build();
+
+        userRepository.save(admin);
 
     }
 
