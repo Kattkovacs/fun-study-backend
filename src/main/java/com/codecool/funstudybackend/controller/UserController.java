@@ -6,6 +6,7 @@ import com.codecool.funstudybackend.view.UserContainer;
 import com.codecool.funstudybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -23,6 +24,7 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Boolean> registration(@RequestBody UserContainer user) {
