@@ -32,9 +32,9 @@ class UserRepositoryTest {
 
         userRepository.save(test1);
         userRepository.save(test2);
-
-        ApplicationUser userByEmailAndPassword = userRepository.findUserByEmailAndPassword("test2@codecool.com", "test");
-        assertEquals(userByEmailAndPassword, test2);
+//
+//        ApplicationUser userByEmailAndPassword = userRepository.findUserByEmailAndPassword("test2@codecool.com", "test");
+//        assertEquals(userByEmailAndPassword, test2);
     }
 
 }

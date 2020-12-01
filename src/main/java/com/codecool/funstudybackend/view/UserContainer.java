@@ -1,4 +1,4 @@
-package com.codecool.funstudybackend.entity;
+package com.codecool.funstudybackend.view;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
