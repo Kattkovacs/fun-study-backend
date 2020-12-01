@@ -29,9 +29,9 @@ public class Card {
     private String imageUrl;
 
     @ManyToMany(mappedBy = "unknownCards")
-    Set<User> users;
+    Set<ApplicationUser> users;
 
-    public void addUser(User user){
+    public void addUser(ApplicationUser user){
         users.add(user);
     }
 

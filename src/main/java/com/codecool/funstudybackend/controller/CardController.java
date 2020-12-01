@@ -1,7 +1,7 @@
 package com.codecool.funstudybackend.controller;
 
 import com.codecool.funstudybackend.entity.Card;
-import com.codecool.funstudybackend.entity.User;
+import com.codecool.funstudybackend.entity.ApplicationUser;
 import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.repository.UserRepository;
 import com.codecool.funstudybackend.view.UnknownCard;
@@ -65,7 +65,7 @@ public class CardController {
     @PostMapping(value = "/savecard", consumes = "application/json", produces = "application/json")
     public Card saveCard(@RequestBody UnknownCard unknownCard){
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
-        User user = userRepository.findUserByEmail(unknownCard.getEmail());
+        ApplicationUser user = userRepository.findUserByEmail(unknownCard.getEmail());
         user.addUnknownCard(card);
         userRepository.save(user);
         card.addUser(user);

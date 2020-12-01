@@ -3,6 +3,7 @@ package com.codecool.funstudybackend.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -10,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Builder
 @Entity
-public class User {
+public class ApplicationUser {
 
     @Id
     @GeneratedValue
@@ -24,7 +25,7 @@ public class User {
 
     private String firstName;
     private String lastName;
-    private String date;
+    private LocalDate date;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @Singular
