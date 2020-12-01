@@ -1,10 +1,16 @@
 package com.codecool.funstudybackend.util;
 
 import com.codecool.funstudybackend.entity.Card;
+import com.codecool.funstudybackend.entity.ApplicationUser;
 import com.codecool.funstudybackend.repository.CardRepository;
+import com.codecool.funstudybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +20,16 @@ public class DbInit {
     @Autowired
     private CardRepository cardRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void initDb() {
         List<HashMap<String, String>> words = new ArrayList<>();
@@ -127,6 +143,17 @@ public class DbInit {
                     .build();
             cardRepository.save(tempCard);
         }
+
+        ApplicationUser eszkis = ApplicationUser.builder()
+                .email("eszkis@mail.com")
+                .password(passwordEncoder.encode("password"))
+                .firstName("Eszkis")
+                .lastName("Laci")
+                .date(LocalDate.of(1992, 2, 7))
+                .build();
+
+        userRepository.save(eszkis);
+
     }
 
 }

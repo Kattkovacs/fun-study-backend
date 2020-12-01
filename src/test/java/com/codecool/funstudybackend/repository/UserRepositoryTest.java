@@ -1,6 +1,6 @@
 package com.codecool.funstudybackend.repository;
 
-import com.codecool.funstudybackend.entity.User;
+import com.codecool.funstudybackend.entity.ApplicationUser;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +20,12 @@ class UserRepositoryTest {
 
     @Test
     public void testIfFindUserByEmailAndPassword(){
-        User test1 = User.builder()
+        ApplicationUser test1 = ApplicationUser.builder()
                 .email("test1@codecool.com")
                 .password("test")
                 .build();
 
-        User test2 = User.builder()
+        ApplicationUser test2 = ApplicationUser.builder()
                 .email("test2@codecool.com")
                 .password("test")
                 .build();
@@ -33,7 +33,7 @@ class UserRepositoryTest {
         userRepository.save(test1);
         userRepository.save(test2);
 
-        User userByEmailAndPassword = userRepository.findUserByEmailAndPassword("test2@codecool.com", "test");
+        ApplicationUser userByEmailAndPassword = userRepository.findUserByEmailAndPassword("test2@codecool.com", "test");
         assertEquals(userByEmailAndPassword, test2);
     }
 

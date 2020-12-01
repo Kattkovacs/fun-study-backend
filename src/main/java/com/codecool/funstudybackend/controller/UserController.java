@@ -1,7 +1,7 @@
 package com.codecool.funstudybackend.controller;
 
 
-import com.codecool.funstudybackend.entity.User;
+import com.codecool.funstudybackend.entity.ApplicationUser;
 import com.codecool.funstudybackend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +20,14 @@ public class UserController {
     UserRepository userRepository;
 
     @PostMapping(value = "/registration", consumes = "application/json", produces = "application/json")
-    public User registration(@RequestBody User user) {
+    public ApplicationUser registration(@RequestBody ApplicationUser user) {
         userRepository.save(user);
         return user;
     }
 
     @PostMapping(value = "/login", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Boolean> login(@RequestBody User user) {
-        User userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
+    public ResponseEntity<Boolean> login(@RequestBody ApplicationUser user) {
+        ApplicationUser userByEmailAndPassword = userRepository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         return ResponseEntity.ok(userByEmailAndPassword != null);
     }
 }
