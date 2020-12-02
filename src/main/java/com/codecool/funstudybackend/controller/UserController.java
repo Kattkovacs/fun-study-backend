@@ -84,4 +84,5 @@ public class UserController {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
+    
 }

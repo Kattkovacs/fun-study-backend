@@ -30,7 +30,7 @@ public class CardController {
 
     private List<Card> usedCardList = new ArrayList<>();
 
-    @PreAuthorize("hasAnyRole('ROLE_PLAYER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @GetMapping("card")
     public Card createCardContent() throws IOException {
         List<Card> cardList = cardRepository.findAll();
@@ -46,13 +46,13 @@ public class CardController {
         return selectedCard;
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PLAYER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @GetMapping("clear-memory-game")
     public void clearMemoryGame() {
         usedCardList.clear();
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PLAYER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @GetMapping("card-with-picture")
     public Card createCardWithPictureContent() throws IOException {
         List<Card> cardList = cardRepository.getAllCardWithPicture();
@@ -60,7 +60,7 @@ public class CardController {
         return cardList.get(random.nextInt(cardList.size()));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PLAYER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @GetMapping("card-without-picture")
     public Card createCardWithOutPictureContent() throws IOException {
         Random random = new Random();
@@ -68,7 +68,7 @@ public class CardController {
         return cardsWithoutPicture.get(random.nextInt(cardsWithoutPicture.size()));
     }
 
-    @PreAuthorize("hasAnyRole('ROLE_PLAYER','ROLE_ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @PostMapping(value = "savecard", consumes = "application/json", produces = "application/json")
     public Card saveCard(@RequestBody UnknownCard unknownCard) {
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
