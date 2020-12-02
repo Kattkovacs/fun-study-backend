@@ -10,5 +10,4 @@ import lombok.NoArgsConstructor;
 public class UnknownCard {
     private String word;
     private String definition;
-    private String email;
 }

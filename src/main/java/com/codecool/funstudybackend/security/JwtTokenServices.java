@@ -89,4 +89,12 @@ public class JwtTokenServices {
         }
         return new UsernamePasswordAuthenticationToken(username, "", authorities);
     }
+
+    public String getEmailFromToken(String token) {
+        String newToken = token.substring(7, token.length());
+        System.out.println(newToken);
+        Claims body = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(newToken).getBody();
+        String email = body.getSubject();
+        return email;
+    }
 }
