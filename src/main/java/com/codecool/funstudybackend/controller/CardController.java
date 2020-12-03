@@ -74,10 +74,22 @@ public class CardController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
+    @GetMapping("players")
+    public List<ApplicationUser> getPlayers() throws IOException {
+        return userRepository.findAll();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("player/{id}")
+    public ResponseEntity<Boolean> deletePlayer(@PathVariable String id) throws IOException {
+        userRepository.deleteById(Long.valueOf(id));
+        return ResponseEntity.ok(true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @PostMapping(value = "savecard", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Boolean> saveCard(@RequestBody UnknownCard unknownCard, @RequestHeader("Authorization") String token) {
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
-
         String email = jwtTokenServices.getEmailFromToken(token);
         System.out.println(email);
         Optional<ApplicationUser> user = userRepository.findApplicationUserByEmail(email);
