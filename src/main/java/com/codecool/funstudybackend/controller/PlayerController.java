@@ -31,7 +31,6 @@ public class PlayerController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("player/{id}")
     public ResponseEntity<Boolean> deletePlayer(@PathVariable String id) throws IOException {
-//        userRepository.deleteById(Long.valueOf(id));
         Optional<ApplicationUser> user = userRepository.findById(Long.valueOf(id));
         if (user.isPresent()) {
             user.get().setActive(false);
