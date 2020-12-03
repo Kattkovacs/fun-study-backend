@@ -32,6 +32,7 @@ public class ApplicationUser {
     private String firstName;
     private String lastName;
     private LocalDate date;
+    private Boolean active;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
     @Singular
