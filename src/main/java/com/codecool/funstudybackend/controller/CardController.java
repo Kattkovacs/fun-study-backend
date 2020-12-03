@@ -6,6 +6,7 @@ import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.repository.UserRepository;
 import com.codecool.funstudybackend.view.UnknownCard;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
@@ -69,12 +70,25 @@ public class CardController {
     }
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
+    @GetMapping("players")
+    public List<ApplicationUser> getPlayers() throws IOException {
+        return userRepository.findAll();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @DeleteMapping("player/{id}")
+    public ResponseEntity<Boolean> deletePlayer(@PathVariable String id) throws IOException {
+        userRepository.deleteById(Long.valueOf(id));
+        return ResponseEntity.ok(true);
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @PostMapping(value = "savecard", consumes = "application/json", produces = "application/json")
     public Card saveCard(@RequestBody UnknownCard unknownCard) {
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
 
         Optional<ApplicationUser> user = userRepository.findUserByEmail(unknownCard.getEmail());
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             user.get().addUnknownCard(card);
             userRepository.save(user.get());
             card.addUser(user.get());
