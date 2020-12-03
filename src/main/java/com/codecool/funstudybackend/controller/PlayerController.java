@@ -35,6 +35,7 @@ public class PlayerController {
         Optional<ApplicationUser> user = userRepository.findById(Long.valueOf(id));
         if (user.isPresent()) {
             user.get().setActive(false);
+            userRepository.save(user.get());
             return ResponseEntity.ok(true);
         }
         return ResponseEntity.ok(false);
