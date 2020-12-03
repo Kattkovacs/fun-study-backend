@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @CrossOrigin
@@ -25,7 +27,8 @@ public class PlayerController {
     @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @GetMapping("players")
     public List<ApplicationUser> getPlayers() throws IOException {
-        return userRepository.findApplicationUserByActive(true);
+        List<ApplicationUser> applicationUsers = userRepository.findApplicationUserByActive(true);
+        return applicationUsers.stream().peek(applicationUser -> applicationUser.setPassword(null)).collect(Collectors.toList());
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
