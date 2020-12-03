@@ -43,12 +43,11 @@ public class Card {
         return cardId.equals(card.cardId) &&
                 Objects.equals(word, card.word) &&
                 Objects.equals(definition, card.definition) &&
-                Objects.equals(imageUrl, card.imageUrl) &&
-                Objects.equals(users, card.users);
+                Objects.equals(imageUrl, card.imageUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cardId, word, definition, imageUrl, users);
+        return Objects.hash(cardId, word, definition, imageUrl);
     }
 }

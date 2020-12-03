@@ -39,7 +39,7 @@ class UserRepositoryTest {
         userRepository.save(test1);
         userRepository.save(test2);
 
-        Optional<ApplicationUser> userByEmail = userRepository.findUserByEmail("test2@codecool.com");
+        Optional<ApplicationUser> userByEmail = userRepository.findApplicationUserByEmail("test2@codecool.com");
         passwordEncoder.matches("test", userByEmail.get().getPassword());
         assertEquals(userByEmail, test2);
     }

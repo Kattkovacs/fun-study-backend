@@ -4,6 +4,7 @@ import com.codecool.funstudybackend.entity.Card;
 import com.codecool.funstudybackend.entity.ApplicationUser;
 import com.codecool.funstudybackend.repository.CardRepository;
 import com.codecool.funstudybackend.repository.UserRepository;
+import com.codecool.funstudybackend.security.JwtTokenServices;
 import com.codecool.funstudybackend.view.UnknownCard;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,9 @@ public class CardController {
 
     @Autowired
     CardRepository cardRepository;
+
+    @Autowired
+    JwtTokenServices jwtTokenServices;
 
     private List<Card> usedCardList = new ArrayList<>();
 
@@ -84,18 +88,19 @@ public class CardController {
 
     @PreAuthorize("hasAnyAuthority('ADMIN', 'PLAYER')")
     @PostMapping(value = "savecard", consumes = "application/json", produces = "application/json")
-    public Card saveCard(@RequestBody UnknownCard unknownCard) {
+    public ResponseEntity<Boolean> saveCard(@RequestBody UnknownCard unknownCard, @RequestHeader("Authorization") String token) {
         Card card = cardRepository.findCardByWord(unknownCard.getWord());
-
-        Optional<ApplicationUser> user = userRepository.findUserByEmail(unknownCard.getEmail());
-        if (user.isPresent()) {
-            user.get().addUnknownCard(card);
-            userRepository.save(user.get());
-            card.addUser(user.get());
-            cardRepository.save(card);
-            return card;
+        String email = jwtTokenServices.getEmailFromToken(token);
+        System.out.println(email);
+        Optional<ApplicationUser> user = userRepository.findApplicationUserByEmail(email);
+        if(user.isPresent()) {
+            ApplicationUser validUser = user.get();
+            validUser.addUnknownCard(card);
+            card.addUser(validUser);
+            userRepository.save(validUser);
+            return ResponseEntity.ok(true);
         }
-        return null;
+        return ResponseEntity.ok(false);
     }
 
 }
