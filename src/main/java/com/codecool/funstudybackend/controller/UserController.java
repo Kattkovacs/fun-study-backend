@@ -2,6 +2,7 @@ package com.codecool.funstudybackend.controller;
 
 
 import com.codecool.funstudybackend.entity.ApplicationUser;
+import com.codecool.funstudybackend.security.ApplicationUserRole;
 import com.codecool.funstudybackend.security.JwtTokenServices;
 import com.codecool.funstudybackend.view.UserCredentials;
 import com.codecool.funstudybackend.repository.UserRepository;
@@ -53,6 +54,7 @@ public class UserController {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .date(user.getDate())
+                .roles(List.of(ApplicationUserRole.PLAYER))
                 .build();
 
         userRepository.save(applicationUser);
